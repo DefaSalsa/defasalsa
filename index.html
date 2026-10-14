@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AMBATIKOM</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css" />
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+
+    /* Setiap kartu memakai gradasi yang sama: merah ke biru */
+    .card {
+      position: relative;
+      background:
+        linear-gradient(#111620, #111620) padding-box,
+        linear-gradient(135deg, #b91c4a, #3b9ac4) border-box;
+      border: 1px solid transparent;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+    }
+    .card::before {
+      content: "";
+      position: absolute;
+      top: -20%;
+      bottom: -20%;
+      left: -60%;
+      width: 35%;
+      pointer-events: none;
+      background: linear-gradient(90deg, transparent, rgba(59, 154, 196, 0.22), transparent);
+      transform: skewX(-25deg);
+      transition: left 0.7s ease;
+      z-index: 2;
+    }
+    .card:hover::before { left: 120%; }
+    .card:hover {
+      box-shadow: -10px 0 24px -6px rgba(185, 28, 74, 0.55), 10px 0 24px -6px rgba(59, 154, 196, 0.55);
+    }
+    .badge {
+      background-image: linear-gradient(90deg, #b91c4a, #3b9ac4);
+    }
+    .img-wrap::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 40%, #111620 100%);
+    }
+
+    .grid-bg {
+      background-color: #080a10;
+      background-image:
+        radial-gradient(ellipse 60% 45% at 8% 0%, rgba(185, 28, 74, 0.22), transparent 70%),
+        radial-gradient(ellipse 55% 45% at 95% 100%, rgba(59, 154, 196, 0.2), transparent 70%),
+        radial-gradient(ellipse 40% 35% at 50% 50%, rgba(79, 92, 168, 0.1), transparent 70%),
+        linear-gradient(rgba(148, 163, 184, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148, 163, 184, 0.035) 1px, transparent 1px);
+      background-size: auto, auto, auto, 40px 40px, 40px 40px;
+      background-attachment: fixed;
+    }
+
+    /* Dekorasi latar yang melayang pelan */
+    .deco { position: fixed; opacity: 0.22; pointer-events: none; z-index: 0; }
+    .float-a { animation: float 7s ease-in-out infinite; }
+    .float-b { animation: float 9s ease-in-out infinite reverse; }
+    .float-c { animation: float 8s ease-in-out infinite 1.5s; }
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(-4deg); }
+      50% { transform: translateY(-22px) rotate(4deg); }
+    }
+    main, header { position: relative; z-index: 1; }
+
+    /* Intro: layar hitam, roket melintas, lalu halaman muncul pelan-pelan */
+    .wipe {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      pointer-events: none;
+      background: #080a10;
+      animation: wipe-fade 1.4s ease 2.4s forwards;
+    }
+    .wipe-fly {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 0;
+      height: 0;
+      animation: fly-across 2.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+    .wipe-rocket {
+      position: absolute;
+      left: 0;
+      top: 0;
+      transform: translate(-50%, -50%) rotate(45deg);
+      font-size: 6rem;
+      color: #e2e8f0;
+    }
+    .wipe-trail {
+      position: absolute;
+      right: 3rem;
+      top: -3px;
+      width: 260px;
+      height: 6px;
+      border-radius: 9999px;
+      background: linear-gradient(90deg, transparent, rgba(59, 154, 196, 0.8), #b91c4a);
+      filter: blur(1px);
+    }
+    @keyframes fly-across {
+      0% { transform: translateX(-20vw); }
+      100% { transform: translateX(120vw); }
+    }
+    @keyframes wipe-fade {
+      from { opacity: 1; }
+      to { opacity: 0; visibility: hidden; }
+    }
+  </style>
+</head>
+<body class="min-h-screen grid-bg text-white">
+
+  <!-- Intro: layar hitam, roket melintas, lalu halaman muncul pelan-pelan -->
+  <div class="wipe" aria-hidden="true">
+    <div class="wipe-fly">
+      <div class="wipe-trail"></div>
+      <i class="fa-solid fa-rocket wipe-rocket"></i>
+    </div>
+  </div>
+
+  <!-- Dekorasi latar -->
+  <i class="fa-solid fa-rocket deco float-a text-6xl text-slate-200 top-24 left-[6%] -rotate-45"></i>
+  <i class="fa-solid fa-user-astronaut deco float-b text-6xl text-sky-400 top-40 right-[8%]"></i>
+  <i class="fa-solid fa-microchip deco float-c text-5xl text-teal-400 bottom-24 left-[12%]"></i>
+  <i class="fa-solid fa-rocket deco float-a text-5xl text-rose-400 bottom-32 right-[14%] -rotate-45"></i>
+  <i class="fa-solid fa-desktop deco float-b text-6xl text-slate-400 top-[60%] left-[3%]"></i>
+  <i class="fa-solid fa-hard-drive deco float-c text-5xl text-sky-300 top-[18%] right-[4%]"></i>
+
+  <header class="text-center pt-14 pb-10 px-4">
+    <h1 class="text-5xl md:text-7xl font-extrabold tracking-wider text-white">AMBATIKOM</h1>
+    <p class="mt-4 text-slate-300 text-lg md:text-xl">
+      Aktivitas Madrasah Berbasis Teknologi, Informasi, dan Komunikasi
+    </p>
+    <div class="mx-auto mt-6 h-px w-48 bg-gradient-to-r from-rose-700 via-indigo-500 to-sky-500"></div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-6 pb-20">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+
+      <a href="dsmbfm.html" class="card block rounded-2xl overflow-hidden transition duration-300 hover:-translate-y-1">
+        <div class="img-wrap relative">
+          <img src="#" alt="DSMultiBootFileManager" class="w-full h-32 object-cover" />
+        </div>
+        <div class="p-5">
+          <div class="flex items-center justify-between text-sm font-semibold mb-3">
+            <span class="text-slate-400"><i class="fa-regular fa-calendar mr-1"></i>14 Okt 2026</span>
+            <span class="badge px-2 py-0.5 rounded text-white text-xs font-bold">Alumni</span>
+          </div>
+          <h3 class="text-lg font-bold leading-snug text-white">DSMultiBootFileManager</h3>
+          <p class="mt-2 text-sm text-slate-400 leading-relaxed">Alat install Windows dan Linux tanpa flashdisk.</p>
+        </div>
+      </a>
+
+    </div>
+  </main>
+
+  <a href="https://wa.me/6282199110793?text=Saya%20mau%20upload%20project%20saya%20ke%20AMBATIKOM%20mas" target="_blank" class="fixed bottom-6 right-6 z-50 inline-flex items-center gap-2 px-5 py-3 rounded-full text-white font-semibold text-sm shadow-lg transition duration-300 hover:-translate-y-1 hover:shadow-xl" style="background-image: linear-gradient(90deg, #b91c4a, #3b9ac4); box-shadow: 0 8px 24px rgba(0,0,0,0.5), 0 0 18px rgba(59,154,196,0.35);">
+    <i class="fa-solid fa-upload"></i>
+    Upload Project
+  </a>
+
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js"></script>
+  <script>
+    const lenis = new Lenis({ duration: 1.0, smoothWheel: true });
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+  </script>
+
+</body>
+</html>
